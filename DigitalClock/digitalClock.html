@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="digitalClock.css">
+ 
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="clock">    
+      <h2>{{title}}</h2>
+      <div id="time"> 
+        <div><span id="hour">{{hour | check}}</span><span>Hours</span></div>
+        <div><span id="minutes">{{minutes | check}}</span><span>Minutes</span></div>
+        <div><span id="seconds">{{seconds | check}}</span><span>Seconds</span></div>
+      </div>   
+  </div>
+  <script src="./js/vue.js"></script>
+  <script>
+    Vue.filter('check', function (i) {
+        let num;
+        i < 10 ? (num = "0" + i) : (num = i);
+          return num;
+        })
+      new Vue({
+      el:"#clock",
+      data:{
+        title:"The time is now",
+        hour:00,
+        minutes:00,
+        seconds:00,
+      },
+      mounted () {
+        setInterval(()=>{
+          this.nowTime()
+        },1000)
+      },
+      methods:{
+          nowTime(){
+             let myDate = new Date();
+              this.hour= myDate.getHours();
+              this.minutes= myDate.getMinutes();
+              this.seconds= myDate.getSeconds();
+          },
+     
+      }
+    })
+  </script>
+</body>
+</html>
